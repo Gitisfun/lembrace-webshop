@@ -6,15 +6,12 @@ export const useGlobalStore = defineStore('global', {
   }),
   getters: {
     cartItems: (state) => state.cart,
-    cartTotal: (state) => state.cart.reduce((total, item) => total + (item.price * item.quantity), 0),
+    cartTotal: (state) => state.cart.reduce((total, item) => total + item.price * item.quantity, 0),
     cartItemCount: (state) => state.cart.reduce((count, item) => count + item.quantity, 0),
   },
   actions: {
     addToCart(product, quantity = 1, selectedMaterials = []) {
-      const existingItem = this.cart.find(
-        item => item.id === product.id && 
-        JSON.stringify(item.selectedMaterials) === JSON.stringify(selectedMaterials)
-      );      
+      const existingItem = this.cart.find((item) => item.id === product.id && JSON.stringify(item.selectedMaterials) === JSON.stringify(selectedMaterials));
 
       if (existingItem) {
         existingItem.quantity += quantity;
@@ -30,16 +27,10 @@ export const useGlobalStore = defineStore('global', {
       }
     },
     removeFromCart(productId, selectedMaterials = []) {
-      this.cart = this.cart.filter(
-        item => !(item.id === productId && 
-        JSON.stringify(item.selectedMaterials) === JSON.stringify(selectedMaterials))
-      );
+      this.cart = this.cart.filter((item) => !(item.id === productId && JSON.stringify(item.selectedMaterials) === JSON.stringify(selectedMaterials)));
     },
     updateQuantity(productId, quantity, selectedMaterials = []) {
-      const item = this.cart.find(
-        item => item.id === productId && 
-        JSON.stringify(item.selectedMaterials) === JSON.stringify(selectedMaterials)
-      );
+      const item = this.cart.find((item) => item.id === productId && JSON.stringify(item.selectedMaterials) === JSON.stringify(selectedMaterials));
       if (item) {
         item.quantity = quantity;
       }
