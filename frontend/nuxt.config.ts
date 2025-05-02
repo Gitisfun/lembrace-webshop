@@ -23,7 +23,4 @@ export default defineNuxtConfig({
       },
     },
   },
-  runtimeConfig: {
-    mollieApiKey: process.env.MOLLIE_API_KEY,
-  },
 });
